@@ -18,7 +18,7 @@ public class Driver {
     //for each thread, in InheritableThreadLocal we can have separate object for that thread
     //driver class will provide separate webdriver object per thread
 
-    private static WebDriver driver;
+
 
     private static InheritableThreadLocal<WebDriver>driverPool=new InheritableThreadLocal<>();
     public static WebDriver get() {
@@ -26,7 +26,7 @@ public class Driver {
         if (driverPool.get() == null) {
             //If we pass the driver from terminal then use that one
             //if we don't pass the driver from terminal then use the one properties file
-            String browser = ConfigurationReader.get("browser") !=null ? browser=System.getProperty("browser"): ConfigurationReader.get("browser");
+            String browser = System.getProperty("browser") !=null ? browser=System.getProperty("browser"): ConfigurationReader.get("browser");
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
@@ -68,13 +68,13 @@ public class Driver {
         }
 
 
-        return driver;
+        return driverPool.get();
     }
 
     public static void closeDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+
+            driverPool.get().quit();
+           driverPool.remove();
         }
     }
-}
+
