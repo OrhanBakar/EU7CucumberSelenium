@@ -18,7 +18,7 @@ public class Driver {
 
     public static WebDriver get() {
         if (driver == null) {
-            String browser = ConfigurationReader.get("browser");
+            String browser = ConfigurationReader.get("browser") !=null ? browser=System.getProperty("browser"): ConfigurationReader.get("browser");
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
@@ -56,11 +56,7 @@ public class Driver {
                     WebDriverManager.getInstance(SafariDriver.class).setup();
                     driver = new SafariDriver();
                     break;
-
             }
-
-
-
         }
 
         return driver;
