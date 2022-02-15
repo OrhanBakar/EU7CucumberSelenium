@@ -1,5 +1,5 @@
 Feature:  Account types
-@wip
+@wip @smoke
   Scenario: Driver user
     Given the user logged in as "driver"
     When  the user navigates to "Activities" "Calendar Events"
@@ -9,7 +9,7 @@ Feature:  Account types
       Given the user logged in as "salesmanager"
       When the user navigates to "Customers" "Accounts"
       Then the title contains "Accounts - CustomerS"
- @wip
+ @wip @smoke
       Scenario: Store manager user
         Given the user logged in as "storemanager"
         When the user navigates to "Customers" "Contacts"
@@ -23,7 +23,7 @@ Feature:  Account types
 
   #Scenario: Store manager user
  #   Given the user logged in as "store manager"
-@user
+
     Scenario Outline: Login with different accounts<userType>
       Given  the user logged in as "<userType>"
       When the user navigates to "<tab>" "<module>"
